@@ -1,0 +1,16 @@
+BALANCE DE COMPROBACION
+select d.aniomes, c.cuenta_contable, c.descripcion, sum(dt.debe) debe, sum(dt.haber) haber, sum(dt.debe) -sum(dt.haber) saldo  from diario d, catalogo c, diario_det dt 
+where d.id_diario=dt.id_diario and c.cuenta_contable=dt.cuenta
+group by d.aniomes, c.cuenta_contable, c.descripcion
+order by d.aniomes, c.cuenta_contable
+
+INGRESOS
+select * from banco_movimiento where tipo<>'Cheque' and condicion='Emitido'
+
+EGRESOS
+select * from banco_movimiento where tipo='Cheque' and condicion<>'Anulado'
+
+BALANCE
+SELECT c.cuenta_contable, c.descripcion, sum(d.debe) debe, sum(d.haber) haber FROM catalogo c LEFT JOIN diario_det d
+                 ON (d.cuenta=c.cuenta_contable)
+group by c.cuenta_contable, c.descripcion

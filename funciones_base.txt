@@ -1,0 +1,12 @@
+- Gestion de Cuentas Bancarias
+- Recibos de Condominio
+- Gestion de Pagos y Depositos
+- Inventario de Activos
+- Reservacion de Areas Comunes
+- Comenatrios
+- Recibos de Pago
+- Avisos
+- Proyectos y Seguimiento
+- Auditoria
+- Registro Contable
+- Emision de Cartas de Residencia

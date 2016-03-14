@@ -1,0 +1,285 @@
+<?php
+
+namespace app\controllers;
+
+use Yii;
+use app\models\ReciboCobro;
+use app\models\ReciboCobroSearch;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
+
+/**
+ * ReciboCobroController implements the CRUD actions for ReciboCobro model.
+ */
+class ReciboCobroController extends Controller
+{
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Lists all ReciboCobro models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+///
+$nombre=Yii::$app->user->identity->username;
+$connection = \Yii::$app->db;
+$db = $connection->createCommand("INSERT INTO auditoria (id, user, modelo, accion, fechahora) VALUES (NULL, '$nombre', 'ReciboCobro', 'Index', NOW());")->execute();
+///
+
+        $searchModel = new ReciboCobroSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionIndex2()
+    {
+///
+$nombre=Yii::$app->user->identity->username;
+$connection = \Yii::$app->db;
+$db = $connection->createCommand("INSERT INTO auditoria (id, user, modelo, accion, fechahora) VALUES (NULL, '$nombre', 'ReciboCobro', 'Index', NOW());")->execute();
+///
+
+        $searchModel = new ReciboCobroSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index2', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionCxc()
+    {
+///
+$nombre=Yii::$app->user->identity->username;
+$connection = \Yii::$app->db;
+$db = $connection->createCommand("INSERT INTO auditoria (id, user, modelo, accion, fechahora) VALUES (NULL, '$nombre', 'ReciboCobro', 'Cxc', NOW());")->execute();
+///
+
+        $searchModel = new ReciboCobroSearch();
+        $dataProvider = $searchModel->search1(Yii::$app->request->queryParams);
+
+        return $this->render('cxc', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionFlujo()
+    {
+///
+$nombre=Yii::$app->user->identity->username;
+$connection = \Yii::$app->db;
+$db = $connection->createCommand("INSERT INTO auditoria (id, user, modelo, accion, fechahora) VALUES (NULL, '$nombre', 'ReciboCobro', 'FlujoCaja', NOW());")->execute();
+///
+
+        $searchModel = new ReciboCobroSearch();
+        $dataProvider = $searchModel->search1(Yii::$app->request->queryParams);
+
+        return $this->render('flujo', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionBalance()
+    {
+///
+$nombre=Yii::$app->user->identity->username;
+$connection = \Yii::$app->db;
+$db = $connection->createCommand("INSERT INTO auditoria (id, user, modelo, accion, fechahora) VALUES (NULL, '$nombre', 'ReciboCobro', 'Balance', NOW());")->execute();
+///
+
+        $searchModel = new ReciboCobroSearch();
+        $dataProvider = $searchModel->search1(Yii::$app->request->queryParams);
+
+        return $this->render('balance', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
+    /**
+     * Displays a single ReciboCobro model.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+///
+$nombre=Yii::$app->user->identity->username;
+$connection = \Yii::$app->db;
+$db = $connection->createCommand("INSERT INTO auditoria (id, user, modelo, accion, fechahora) VALUES (NULL, '$nombre', 'ReciboCobro', 'View', NOW());")->execute();
+///
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new ReciboCobro model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+///
+$nombre=Yii::$app->user->identity->username;
+$connection = \Yii::$app->db;
+$db = $connection->createCommand("INSERT INTO auditoria (id, user, modelo, accion, fechahora) VALUES (NULL, '$nombre', 'ReciboCobro', 'Crear Couta Especial', NOW());")->execute();
+///
+        $model = new ReciboCobro();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+$numpropiedades = $connection->createCommand("select count(propiedad) from propiedad")->queryScalar();
+//$montomes=$connection->createCommand("select sum(monto) from facturas where periodo='$model->aniomes' group by periodo")->queryScalar();
+
+$db = $connection->createCommand("INSERT INTO `recibo_cobro`(`id_recibo_cobro`, `periodo`, `propiedad`, `alicuota`, `cedula_responsable`, `nombre_responsable`, `monto`, `fecha_registro`, `fecha_pago`, `fecha_acreditacion`) 
+select NULL, '$model->periodo - Especial',propiedad,alicuota,cedula_responsable,nombre_responsable,$model->monto/$numpropiedades,NOW(),NULL,NULL from propiedad")->execute();
+$db1 = $connection->createCommand("INSERT INTO `recibo_cobro_det`(`id_recibo_cobro_det`, `id_recibo_cobro`, `concepto`, `proveedor`, `factura`, `monto`) 
+select NULL, r.id_recibo_cobro, '$model->periodo - Cuota Especial', '-', '-', $model->monto/$numpropiedades from recibo_cobro r where r.periodo='$model->periodo - Especial'")->execute();
+
+$diario = $connection->createCommand("INSERT INTO diario (id_diario, aniomes, fecha, descripcion, condicion) 
+  VALUES (NULL, '$model->periodo - Especial', CURDATE(), 'Recibo de Condominio $model->periodo - Cuota Especial', 'Correcto')")->execute();
+$id_diario = $connection->createCommand("SELECT id_diario from diario 
+                           WHERE aniomes='$model->periodo - Especial' order by id_diario desc;")->queryScalar();
+$diario_det = $connection->createCommand("INSERT INTO diario_det (id_diario_det, id_diario, cuenta, debe, haber)
+                           SELECT NULL, $id_diario, cuenta_contable, $model->monto/$numpropiedades, 0 from propiedad")->execute();
+$diario_det = $connection->createCommand("INSERT INTO diario_det (id_diario_det, id_diario, cuenta, debe, haber)
+                           SELECT NULL, $id_diario, cuenta_ingresos, 0, $model->monto/$numpropiedades from propiedad")->execute();
+
+
+/*
+        $model = new ReciboCobro();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) { */
+        return $this->redirect(['index']);
+//            return $this->redirect(['view', 'id' => $model->id_recibo_cobro]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Updates an existing ReciboCobro model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+///
+$nombre=Yii::$app->user->identity->username;
+$connection = \Yii::$app->db;
+$db = $connection->createCommand("INSERT INTO auditoria (id, user, modelo, accion, fechahora) VALUES (NULL, '$nombre', 'ReciboCobro', 'Actualizar', NOW());")->execute();
+///
+
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        return $this->redirect(['index']);
+//            return $this->redirect(['view', 'id' => $model->id_recibo_cobro]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Deletes an existing ReciboCobro model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+///
+$nombre=Yii::$app->user->identity->username;
+$connection = \Yii::$app->db;
+$db = $connection->createCommand("INSERT INTO auditoria (id, user, modelo, accion, fechahora) VALUES (NULL, '$nombre', 'ReciboCobro', 'Borrar', NOW());")->execute();
+///
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the ReciboCobro model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param string $id
+     * @return ReciboCobro the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = ReciboCobro::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+
+
+    public function actionDet($id)
+    {
+        $model = $this->findModel($id);
+        //$this->findModel($id)->delete();
+
+        //return $this->redirect(['index']);
+        return $this->redirect(['recibo-cobro-det/index', 'id' => $model->id_recibo_cobro]);
+    }
+
+    public function actionPagar($id)
+    {
+        $model = $this->findModel($id);
+        //$this->findModel($id)->delete();
+
+        //return $this->redirect(['index']);
+        return $this->redirect(['banco-movimiento/createpago', 'id_recibo_cobro' => $model->id_recibo_cobro]);
+    }
+
+    public function actionPrint($id)
+    {
+///
+$nombre=Yii::$app->user->identity->username;
+$connection = \Yii::$app->db;
+$db = $connection->createCommand("INSERT INTO auditoria (id, user, modelo, accion, fechahora) VALUES (NULL, '$nombre', 'ReciboCobro', 'Imprimir', NOW());")->execute();
+///
+
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        return $this->redirect(['index']);
+//            return $this->redirect(['view', 'id' => $model->id_recibo_cobro]);
+        } else {
+            return $this->render('print', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+
+
+}

@@ -1,0 +1,55 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\DetailView;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Facturas */
+
+$this->title = $model->id_facturas;
+$this->params['breadcrumbs'][] = ['label' => 'Facturas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="facturas-view">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+    <?php 
+       if ($model->condicion=='Cancelada') {} else 
+       { ?>
+        <div style="float: left"><?= Html::a('Pagar', ['pagar', 'id' => $model->id_facturas], ['class' => 'btn btn-warning']) ?></div>
+        <div style="float: right"><?= Html::a('Anular', ['anular', 'id' => $model->id_facturas], ['class' => 'btn btn-danger']) ?></div>
+       <?php } ?>
+
+<!--        <?= Html::a('Actualizar', ['update', 'id' => $model->id_facturas], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Borrar', ['delete', 'id' => $model->id_facturas], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Esta Seguro que quiere borrar este item?',
+                'method' => 'post',
+            ],
+        ]) ?>-->
+    </p>
+    <br>
+    <br>
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id_facturas',
+            'numero',
+            'control',
+            'periodo',
+            'fecha',
+            'proveedor',
+            'concepto',
+            'monto',
+            'abono',
+            'condicion',
+            'fecha_registro',
+            'fecha_modificacion',
+        ],
+    ]) ?>
+
+</div>

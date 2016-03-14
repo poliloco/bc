@@ -1,0 +1,87 @@
+PROCESO DE INSTALACIOND DE BUEN CONDOMINIO
+1) Se establece el espacio en el hosting
+2) Se crea la base de datos con la esructura base
+3) Se cargan los script de configuracion base con los usuarios y las cuentas contables
+4) Se ingresa al sistema para empezar a configurar Propietarios, Cuentas Contables, Proveedores y Usuarios del sistema
+5) La instalaciones se sugiere colocar codigo que empiece con I y a los activos codigo qe empiece con A
+6) Se deben crear los periodos contables
+
+
+
+
+Funciones del Administrador:
+
+GASTOS MENSUALES:
+-Registro:
+	Se logea con usuario Administrador, en la pantalla de Inicio selecciona del Menu o del Atajo la opcion de Facturas.
+	En la pantalla de Facturas selecciona la Opcion de Crear Facturas.
+	Ingresa los datos de la Factura: Numero de Factura, Numero de Control, Periodo Contable (Mes del Gasto), Fecha de la Factura, Proveedor o Contratista (Debe estar registrado en el sistema), Concepto de la Factura, Monto de la Factura.
+	Luego presiona el boton crear y se registra la factura. (Se generan los asientos contables de forma automatica).
+
+-Consulta:
+	En la Pantala de Facturas se presiona sobre el icono del Ojo (Ver)
+	Se pasa la pantalla donde se observan todos os datos de esa factura.
+	Tiene la opcion de Pagar o Anular dicha Factura.
+
+-Pago:
+	Desde la pantalla de visualizacion de Facturas, al seleccionar pagar, sera redirigido a la pantalla de Crear Pagos de Facturas
+	Debe ingrear la cuenta bancaria, el numero de cheque, la fecha del cheque y el monto del mismo (los otros datos son automaticos)
+	Al grabarse el cheque, sera redirigido al listado de cheques emitidos.
+	Al volver a la pantalla de facturas podra ver el estatus de las Facturas Modificadas.
+
+-Anular:(IMPLEMENTAR)
+	Desde la pantalla de visualizacion de Facturas, al seleccionar Anular, dicha factura sera anulada y se haran los respectivos asientos contables de reverso. (IMPLEMENTAR).
+
+
+RECIBO DE CONDOMINIO:
+-Generar:
+	Para generar los Recibos de Condominio, una vez cargado los Gastos Mensuales se debe ir a la opcion de Periodo, seleccionar el icono del Ojo.
+	El la pantalla de visualizacion del Periodo Seleccionar el boton Cerrar Periodo.
+	DE esta forma se cierra el periodo contable, se generan los Recibos de Condominio de cada una de las propiedades registradas.
+
+-Generar Recibo Especial:
+	En la pantalla Recibo de Condominio, seleccionar Crear Recibo Condominio Especial.
+	Se ingresan el periodo, monto, se presiona el boton Crear y se generan las cuotas especiales.
+
+-Pagar:
+	Se selecciona el icono del Ojo y se pasa a la pantalla de visualizacion donde se puede seleccionar el boton pagar que redirige a la pantalla de Crear Pago de Recibo y se ingresan los datos del banco, vaucher, fecha, el tipo de pago y el monto.
+	Luego de de presionar el boton crear se va a la pantalla de Depositos.
+
+-Detalles:
+	Seleccionar el icono de Detalles, se redirige a la pantalla de Recibo de Condominio Detalles donde se aprecia los conceptos del Recibo de Condominio del periodo seleccionado.
+	Al presionar Crea Detalle se puede agregar concepto individuales a ese Recibo de Condominio.
+
+-Imprimir:
+	Al seleccionar el icono Imprimir, se genera un archivo PDF descargable del Recibo de Condominio, con todos los datos y conceptos del mismo, asi mismo, tiene la fecha de generacion del archivo y la fecha de impresion del mismo.
+
+
+CHEQUES:
+-Registrar:
+	Para registrar los cheques emitidos, debe seleccionar la opcion Cheques y presionar el boton 
+
+-Crear Cheque:	
+	Sera redirigido al la pantalla donde debe ingresar los datos cuenta banco, numeo de 
+ cheque, periodo contable, beneficiario (debe estar registrado), monto, fecha del cheque y concepto. Al presionar Crear sera registrada la informacion y los asientos contables.
+
+-Actualizar:
+	Al seleccionar el boton de actualizar, sera dirigido a una pantalla donde podra actualizar los datos del cheque.
+
+-Anular:
+	Si por alguna razon se debe anular algun cheque, en la pantalla de visualizacion, se presiona el boton Anular y se realizar los precesos de anulacion y reverso contable del documento
+
+DEPOSITOS: las operaciones son las mismas que para cheques.
+
+
+PROPIEDADES
+-Registrar:
+	Se selecciona la opcion de propiedades y se ingresan los datos correspondientes
+
+
+PROVEEDORES, INSTALACIONES, ACTIVOS: mismo caso anterior
+
+
+DIARIO: se visualizan las operaciones contables diarias realizadas
+
+PERIODO: se configuran los periodos contables
+
+CATALOGO: se configuran el plan de cuentas contables de trabajo

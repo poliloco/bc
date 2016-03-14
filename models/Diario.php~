@@ -1,0 +1,63 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "diario".
+ *
+ * @property string $id_diario
+ * @property string $aniomes
+ * @property string $fecha
+ * @property string $descripcion
+ * @property string $condicion
+ *
+ * @property DiarioDet[] $diarioDets
+ */
+class Diario extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'diario';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['aniomes', 'fecha', 'descripcion'], 'required'],
+            [['fecha'], 'safe'],
+            [['aniomes'], 'string', 'max' => 15],
+            [['descripcion'], 'string', 'max' => 100],
+            [['condicion'], 'string', 'max' => 10]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id_diario' => 'Id Diario',
+            'aniomes' => 'Aniomes',
+            'fecha' => 'Fecha',
+            'descripcion' => 'Descripcion',
+            'condicion' => 'Condicion',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDiarioDets()
+    {
+        return $this->hasMany(DiarioDet::className(), ['id_diario' => 'id_diario']);
+    }
+}

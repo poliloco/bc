@@ -1,0 +1,95 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+use kartik\date\DatePicker;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\BancoMovimiento */
+/* @var $form yii\widgets\ActiveForm */
+
+use yii\helpers\ArrayHelper;
+
+use app\models\Banco;
+$banco=Banco::find()->all();
+$listData0=ArrayHelper::map($banco,'cuenta_banco','cuenta_banco');
+
+
+use app\models\Periodo;
+$periodo=Periodo::find()->where(['Condicion'=>'Activo'])->all();
+$listData1=ArrayHelper::map($periodo,'aniomes','aniomes'); 
+
+$id_facturas = $_GET['id_facturas'];
+use app\models\Facturas;
+//$facturas=Facturas::find()->where(['id_recibo_cobro'=>$id_recibo_cobro])->all();
+//$listData1=ArrayHelper::map($recibocobro,'periodo','periodo');
+$proveedor=Facturas::find()->select('proveedor')->where(['id_facturas'=>$id_facturas])->scalar();
+$numero=Facturas::find()->select('numero')->where(['id_facturas'=>$id_facturas])->scalar();
+//$periodo=Facturas::find()->select('periodo')->where(['id_facturas'=>$id_facturas])->scalar();
+
+?>
+
+<div class="banco-movimiento-form">
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <!--<?= $form->field($model, 'cuenta_banco')->textInput(['maxlength' => true]) ?>-->
+    <?= $form->field($model, 'cuenta_banco')->dropDownList(
+	                                $listData0,
+	                                ['prompt'=>'Selecione Cuenta Banco...']) ?>
+
+    <?= $form->field($model, 'referencia')->textInput(['maxlength' => true]) ?>
+
+    <!--<?= $form->field($model, 'periodo')->textInput(['maxlength' => true]) ?>-->
+    <?= $form->field($model, 'periodo')->dropDownList(
+                                        $listData1,
+	                                ['prompt'=>'Selecione Periodo Contable...']) ?>
+
+    <!--<?= $form->field($model, 'fecha_movimiento')->textInput() ?>-->
+<?php
+echo '<label>Fecha Movimiento</label>';
+echo DatePicker::widget([
+    'model' => $model,
+    'attribute' => 'fecha_movimiento',
+    'name' => 'fecha_movimiento', 
+    'value' => date('yyyy-mm-dd', strtotime('-1 days')),
+//    'value' => date('d-M-Y', strtotime('-1 days')),
+//    'value' => date('d-M-Y'),
+    'options' => ['placeholder' => 'Seleccionar Fecha ...'],
+    'pluginOptions' => [
+//        'format' => 'dd-M-yyyy',
+        'format' => 'yyyy-mm-dd',
+        'todayHighlight' => true
+    ]
+]); ?>
+
+    <!--<?= $form->field($model, 'fecha_registro')->textInput() ?>-->
+
+    <!--<?= $form->field($model, 'tipo')->textInput(['maxlength' => true]) ?>-->
+    <?= $form->field($model, 'tipo')->dropDownList(
+                                     ['Cheque'=>'Cheque']) ?>
+
+    <!--<?= $form->field($model, 'persona')->textInput(['maxlength' => true]) ?>-->
+    <?= $form->field($model, 'persona')->dropDownList(
+	                                [$proveedor =>$proveedor]) ?>
+
+    <!--<?= $form->field($model, 'concepto')->textInput(['maxlength' => true]) ?>-->
+    <?= $form->field($model, 'concepto')->dropDownList(
+	                                [$numero =>$numero]) ?>
+
+    <?= $form->field($model, 'cargo')->textInput() ?>
+
+    <!--<?= $form->field($model, 'abono')->textInput() ?>-->
+
+    <!--<?= $form->field($model, 'conciliado')->textInput(['maxlength' => true]) ?>-->
+
+    <!--<?= $form->field($model, 'condicion')->textInput(['maxlength' => true]) ?>-->
+
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>

@@ -1,0 +1,53 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\DetailView;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\ReciboCobro */
+
+$this->title = $model->id_recibo_cobro;
+$this->params['breadcrumbs'][] = ['label' => 'Recibo Cobros', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="recibo-cobro-view">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+       <?php if ($model->condicion<>'Cancelado')
+       { ?>
+        <?= Html::a('Pagar', ['pagar', 'id' => $model->id_recibo_cobro], ['class' => 'btn btn-warning']) ?>
+       <?php }
+        else
+        {}
+          ?>
+<!--        <?= Html::a('Actualizar', ['update', 'id' => $model->id_recibo_cobro], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Borrar', ['delete', 'id' => $model->id_recibo_cobro], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Esta Seguro que quiere borrar este item?',
+                'method' => 'post',
+            ],
+        ]) ?>-->
+    </p>
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id_recibo_cobro',
+            'periodo',
+            'propiedad',
+            'alicuota',
+            'cedula_responsable',
+            'nombre_responsable',
+            'monto',
+            'abono',
+            'fecha_registro',
+            'fecha_pago',
+            'fecha_acreditacion',
+            'condicion',
+        ],
+    ]) ?>
+
+</div>

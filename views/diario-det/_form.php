@@ -1,0 +1,29 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\DiarioDet */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+<div class="diario-det-form">
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'id_diario')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'cuenta')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'debe')->textInput() ?>
+
+    <?= $form->field($model, 'haber')->textInput() ?>
+
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>

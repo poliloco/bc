@@ -1,0 +1,44 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\PropiedadSearch */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+<div class="propiedad-search">
+
+    <?php $form = ActiveForm::begin([
+        'action' => ['index'],
+        'method' => 'get',
+    ]); ?>
+
+    <?= $form->field($model, 'id_propiedad') ?>
+
+    <?= $form->field($model, 'propiedad') ?>
+
+    <?= $form->field($model, 'superficie') ?>
+
+    <?= $form->field($model, 'alicuota') ?>
+
+    <?= $form->field($model, 'cuenta_contable') ?>
+    <?= $form->field($model, 'cuenta_ingresos') ?>
+
+    <?php //echo $form->field($model, 'cedula_responsable') ?>
+
+    <?php // echo $form->field($model, 'nombre_responsable') ?>
+
+    <?php // echo $form->field($model, 'telefono_responsable') ?>
+    <?php // echo $form->field($model, 'correo_responsable') ?>
+    <?php // echo $form->field($model, 'condicion') ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Limpiar', ['class' => 'btn btn-default']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>

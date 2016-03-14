@@ -1,0 +1,70 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "organizacion".
+ *
+ * @property string $id_organizacion
+ * @property string $razon_social
+ * @property string $rif
+ * @property string $estado
+ * @property string $municipio
+ * @property string $parroquia
+ * @property string $sector
+ * @property string $direccion
+ * @property string $telefono
+ * @property string $correo
+ * @property string $logo
+ * @property string $condicion
+ */
+class Organizacion extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'organizacion';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['razon_social', 'rif', 'estado', 'municipio', 'parroquia', 'direccion'], 'required'],
+            [['razon_social', 'direccion', 'correo', 'logo'], 'string', 'max' => 100],
+            [['rif', 'telefono'], 'string', 'max' => 15],
+            [['estado', 'municipio', 'parroquia', 'sector'], 'string', 'max' => 50],
+            [['condicion'], 'string', 'max' => 10],
+            [['imagen'], 'file'],
+            [['razon_social'], 'unique'],
+            [['rif'], 'unique']
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id_organizacion' => 'Id Organizacion',
+            'razon_social' => 'Razon Social',
+            'rif' => 'Rif',
+            'estado' => 'Estado',
+            'municipio' => 'Municipio',
+            'parroquia' => 'Parroquia',
+            'sector' => 'Sector',
+            'direccion' => 'Direccion',
+            'telefono' => 'Telefono',
+            'correo' => 'Correo',
+            'logo' => 'Logo',
+            'condicion' => 'Condicion',
+        ];
+    }
+}

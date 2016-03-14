@@ -1,0 +1,55 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "comentarios".
+ *
+ * @property string $id_comentarios
+ * @property string $familia
+ * @property string $comentario
+ * @property string $aprobado
+ * @property string $fecha_registro
+ * @property string $fecha_aprobacion
+ */
+class Comentarios extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'comentarios';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['familia', 'comentario'], 'required'],
+            [['comentario'], 'string'],
+            [['fecha_registro', 'fecha_aprobacion'], 'safe'],
+            [['familia'], 'string', 'max' => 50],
+            [['aprobado'], 'string', 'max' => 2]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id_comentarios' => 'Id Comentarios',
+            'familia' => 'Usuario',
+            'comentario' => 'Comentario',
+            'aprobado' => 'Aprobado',
+            'fecha_registro' => 'Fecha Registro',
+            'fecha_aprobacion' => 'Fecha Aprobacion',
+        ];
+    }
+}
